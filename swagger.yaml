@@ -1,0 +1,50 @@
+openapi: 3.0.0
+info:
+  title: Product Service API
+  description: API для керування товарами магазину (Task 3)
+  version: 1.0.0
+paths:
+  /products:
+    get:
+      summary: Отримати список усіх товарів
+      responses:
+        '200':
+          description: Успішна відповідь зі списком товарів
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+  /products/{productId}:
+    get:
+      summary: Отримати товар за його ID
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: Унікальний ідентифікатор товару
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Успішна відповідь з даними товару
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Товар не знайдено
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
